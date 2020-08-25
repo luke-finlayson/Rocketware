@@ -1,0 +1,33 @@
+﻿<Window x:Class="Rocketware.ConfigDeviceCommands"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Device Command Configuration" Height="327.82" Width="312.144" ResizeMode="NoResize" WindowStartupLocation="Manual" Icon="pack://siteoforigin:,,,/Resources/configFavicon.png">
+    <Grid>
+        <Button IsDefault="True" x:Name="buttonSave" Content="Save" Margin="0,0,99.6,10" Background="White" BorderBrush="#FFAEAEAE" Foreground="#FF7E7D7D" FontFamily="Arial" FontWeight="Bold" FontSize="13" Height="29" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="85" Click="buttonSave_Click">
+            <Button.Effect>
+                <DropShadowEffect BlurRadius="6" Direction="300" Opacity="0.25" ShadowDepth="3"/>
+            </Button.Effect>
+        </Button>
+        <Button IsCancel="True" x:Name="buttonCancel" Content="Cancel" Margin="0,0,9.6,10" Background="White" BorderBrush="#FFAEAEAE" Foreground="#FF7E7D7D" FontFamily="Arial" FontWeight="Bold" FontSize="13" HorizontalAlignment="Right" Width="85" Height="29" VerticalAlignment="Bottom">
+            <Button.Effect>
+                <DropShadowEffect BlurRadius="6" Direction="300" Opacity="0.25" ShadowDepth="3"/>
+            </Button.Effect>
+        </Button>
+        <Label x:Name="label1_Copy1" Content="DEVICE COMMAND CONFIGURATION" HorizontalAlignment="Left" Height="27" Margin="10,10,0,0" VerticalAlignment="Top" Width="285" Foreground="#FFABABAB" FontFamily="Arial" FontWeight="Bold" FontSize="15"/>
+        <Label x:Name="label2" Content="Launch" HorizontalAlignment="Left" Margin="81,42,0,0" VerticalAlignment="Top" Foreground="#FFA9A5A5" FontFamily="Arial" FontSize="12.5" FontWeight="Bold" Height="24"/>
+        <Label x:Name="label2_Copy" Content="Abort" HorizontalAlignment="Left" Margin="91,71,0,0" VerticalAlignment="Top" Foreground="#FFA9A5A5" FontFamily="Arial" FontSize="12.5" FontWeight="Bold" Height="24"/>
+        <Label x:Name="label2_Copy1" Content="Deploy Parachute" HorizontalAlignment="Left" Margin="19,100,0,0" VerticalAlignment="Top" Foreground="#FFA9A5A5" FontFamily="Arial" FontSize="12.5" FontWeight="Bold" Height="24"/>
+        <Label x:Name="label2_Copy2" Content="Auxiliary (1)" HorizontalAlignment="Left" Margin="53,150,0,0" VerticalAlignment="Top" Foreground="#FFA9A5A5" FontFamily="Arial" FontSize="12.5" FontWeight="Bold" Height="24"/>
+        <Label x:Name="label2_Copy3" Content="Auxiliary (2)" HorizontalAlignment="Left" Margin="53,179,0,0" VerticalAlignment="Top" Foreground="#FFA9A5A5" FontFamily="Arial" FontSize="12.5" FontWeight="Bold" Height="24"/>
+        <Label x:Name="label2_Copy4" Content="Auxiliary (3)" HorizontalAlignment="Left" Margin="53,208,0,0" VerticalAlignment="Top" Foreground="#FFA9A5A5" FontFamily="Arial" FontSize="12.5" FontWeight="Bold" Height="24"/>
+        <TextBox x:Name="textBoxLaunch" HorizontalAlignment="Left" Height="24" Margin="159,42,0,0" TextWrapping="Wrap" Text="launch" VerticalAlignment="Top" Width="124" FontFamily="Arial" FontWeight="Bold" Foreground="#FF535353" BorderBrush="#FFABADB3" Padding="5,4,0,0"/>
+        <TextBox x:Name="textBoxAbort" HorizontalAlignment="Left" Height="24" Margin="159,71,0,0" TextWrapping="Wrap" Text="abort" VerticalAlignment="Top" Width="124" FontFamily="Arial" FontWeight="Bold" Foreground="#FF535353" BorderBrush="#FFABADB3" Padding="5,4,0,0"/>
+        <TextBox x:Name="textBoxDeployParachute" HorizontalAlignment="Left" Height="24" Margin="159,100,0,0" TextWrapping="Wrap" Text="deploy-parachute" VerticalAlignment="Top" Width="124" FontFamily="Arial" FontWeight="Bold" Foreground="#FF535353" BorderBrush="#FFABADB3" Padding="5,4,0,0"/>
+        <TextBox x:Name="textBoxAux1" HorizontalAlignment="Left" Height="24" Margin="159,150,0,0" TextWrapping="Wrap" Text="aux1" VerticalAlignment="Top" Width="124" FontFamily="Arial" FontWeight="Bold" Foreground="#FF535353" BorderBrush="#FFABADB3" Padding="5,4,0,0"/>
+        <TextBox x:Name="textBoxAux2" HorizontalAlignment="Left" Height="24" Margin="159,179,0,0" TextWrapping="Wrap" Text="aux2" VerticalAlignment="Top" Width="124" FontFamily="Arial" FontWeight="Bold" Foreground="#FF535353" BorderBrush="#FFABADB3" Padding="5,4,0,0"/>
+        <TextBox x:Name="textBoxAux3" HorizontalAlignment="Left" Height="24" Margin="159,208,0,0" TextWrapping="Wrap" Text="aux3" VerticalAlignment="Top" Width="124" FontFamily="Arial" FontWeight="Bold" Foreground="#FF535353" BorderBrush="#FFABADB3" Padding="5,4,0,0"/>
+    </Grid>
+</Window>

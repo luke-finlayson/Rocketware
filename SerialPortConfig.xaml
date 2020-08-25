@@ -1,0 +1,24 @@
+﻿<Window x:Class="Rocketware.SerialPortConfig"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Serial Port Configuration" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" SizeToContent="WidthAndHeight" Background="WhiteSmoke" Height="156" Width="284" Icon="pack://siteoforigin:,,,/Resources/configFavicon.png">
+    <Grid Margin="0,0,10,10">
+        <Label x:Name="label1_Copy1" Content="Serial Line" HorizontalAlignment="Left" Height="27" Margin="11,20,0,0" VerticalAlignment="Top" Width="144" Foreground="#FFABABAB" FontFamily="Arial" FontWeight="Bold" FontSize="15"/>
+        <ComboBox x:Name="comboBoxSerialLines" HorizontalAlignment="Left" Margin="11,47,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label x:Name="label1_Copy" Content="Baud Rate" HorizontalAlignment="Left" Height="27" Margin="160,20,0,0" VerticalAlignment="Top" Width="98" Foreground="#FFABABAB" FontFamily="Arial" FontWeight="Bold" FontSize="15"/>
+        <TextBox x:Name="textBoxBaudRate" HorizontalAlignment="Left" Height="23" Margin="159,46,0,0" TextWrapping="Wrap" Text="9600" VerticalAlignment="Top" Width="99" FontFamily="Arial" FontWeight="Bold" Foreground="#FF535353" Padding="10,4,0,0" FlowDirection="RightToLeft"/>
+        <Button IsDefault="True" x:Name="buttonSave" Content="_Save" HorizontalAlignment="Left" Margin="117,87,0,0" VerticalAlignment="Top" Width="73" Height="29" Background="White" BorderBrush="#FFAEAEAE" Foreground="#FF7E7D7D" FontFamily="Arial" FontWeight="Bold" FontSize="13" Click="buttonSave_Click">
+            <Button.Effect>
+                <DropShadowEffect BlurRadius="6" Direction="300" Opacity="0.25" ShadowDepth="3"/>
+            </Button.Effect>
+        </Button>
+        <Button IsCancel="True" x:Name="buttonSave_Copy" Content="_Cancel" HorizontalAlignment="Left" Margin="195,87,-0.4,0" VerticalAlignment="Top" Width="73" Height="29" Background="White" BorderBrush="#FFAEAEAE" Foreground="#FF7E7D7D" FontFamily="Arial" FontWeight="Bold" FontSize="13">
+            <Button.Effect>
+                <DropShadowEffect BlurRadius="6" Direction="300" Opacity="0.25" ShadowDepth="3"/>
+            </Button.Effect>
+        </Button>
+    </Grid>
+</Window>
