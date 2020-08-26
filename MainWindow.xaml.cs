@@ -375,19 +375,14 @@ namespace Rocketware
             double s2 = Math.Sin(pitch / 2);
             double s3 = Math.Sin(roll / 2);
 
-            // Solving for angle
-            double angle = (2 * Math.Acos((c1 * c2 * c3) + (s1 * s2 * s3))) * (360 / (2 * Math.PI));
-            // Solving for raw axis
-            double rawX = (c1 * c2 * s3) - (s1 * s2 * c3);
-            double rawY = (c1 * s2 * c3) - (s1 * c2 * s3);
-            double rawZ = (s1 * c2 * c3) - (c1 * s2 * s3);
-            // Normalizing axis
-            double x = rawX / ((rawX * rawX) + (rawY * rawY) + (rawZ * rawZ));
-            double y = rawY / ((rawX * rawX) + (rawY * rawY) + (rawZ * rawZ));
-            double z = rawZ / ((rawX * rawX) + (rawY * rawY) + (rawZ * rawZ));
+            // Solving for quaternions
+            double qW = (c1 * c2 * c3) - (s1 * s2 * s3);
+            double qX = (s1 * s2 * c3) + (c1 * c2 * s3);
+            double qY = (s1 * c2 * s3) + (c1 * s2 * c3);
+            double qZ = (c1 * s2 * s3) - (s1 * c2 * c3);
 
             // Configuring rotating tranformation
-            rotateRocket = new RotateTransform3D(new AxisAngleRotation3D(new Vector3D(x, y, z), angle));
+            rotateRocket = new RotateTransform3D(new QuaternionRotation3D(new Quaternion(qX, qY, qZ, qW)));
             rotateRocket.CenterX = rocketPivot.X;
             rotateRocket.CenterY = rocketPivot.Y;
             rotateRocket.CenterZ = rocketPivot.Z;
