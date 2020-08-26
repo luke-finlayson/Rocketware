@@ -19,8 +19,6 @@ namespace Rocketware
         #region Initial Setup
         // Serial related variables
         SerialPort _serialPort;
-        string portName;
-        int baudRate = 0;
         bool _continue;
         Thread readThread;
 
