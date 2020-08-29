@@ -31,11 +31,6 @@
                 <DropShadowEffect BlurRadius="6" Opacity="0.05" ShadowDepth="3" Direction="270"/>
             </Menu.Effect>
             <MenuItem Header="_File">
-                <MenuItem Header="Theme">
-                    <MenuItem Header="_Auto"/>
-                    <MenuItem Header="_Light"/>
-                    <MenuItem Header="_Dark"/>
-                </MenuItem>
                 <Separator/>
                 <MenuItem Header="E_xit" Click="MenuItem_Click"/>
             </MenuItem>
@@ -50,16 +45,18 @@
             <MenuItem Header="D_ata">
                 <MenuItem Header="_Zero"/>
                 <MenuItem Header="_Clear Data" Click="MenuItem_Click_3"/>
-                <MenuItem Header="_Unit Configuration"/>
                 <Separator/>
+                <CheckBox x:Name="checkBoxHeading" Content="Use Heading in Math" IsChecked="True" Click="HeadingCheckbox_Click"/>
                 <CheckBox x:Name="useDeltaAltitudeCheckBox" Content="Use Δ _Altitude" 
                           IsChecked="True" Click="Checkbox_Click"/>
+                <CheckBox x:Name="useImperialCheckbox" Content="Use Imperial Units" Click="useImperialCheckbox_Click"/>
+                <CheckBox x:Name="outputDataCheckbox" Content="Output Data to Log" Click="outputDataCheckbox_Click"/>
             </MenuItem>
         </Menu>
         <Label x:Name="label" Content="CAMERA VIEW" HorizontalAlignment="Left" Height="25" 
                Margin="24,26,0,0" VerticalAlignment="Top" Width="124" FontFamily="Arial" 
                FontWeight="Bold" Foreground="#FFABABAB" FontSize="15"/>
-        <Rectangle Fill="White" HorizontalAlignment="Left" Height="295" Margin="373,51,0,0" 
+        <Rectangle x:Name="dataLogBackgroundBox" Fill="White" HorizontalAlignment="Left" Height="295" Margin="373,51,0,0" 
                    VerticalAlignment="Top" Width="337">
             <Rectangle.Effect>
                 <DropShadowEffect BlurRadius="6" Direction="270" Opacity="0.16" ShadowDepth="3"/>
@@ -87,7 +84,7 @@
                VerticalAlignment="Top" Foreground="#FFA9A5A5" FontFamily="Arial" FontSize="12.5" 
                FontWeight="Bold" Height="26"/>
         <TextBox x:Name="textBoxHeading" HorizontalAlignment="Left" Height="16" Margin="468,97,0,0" 
-                 TextWrapping="Wrap" Text="-" VerticalAlignment="Top" Width="55" BorderBrush="#FF707070" 
+                 TextWrapping="Wrap" Text="-" VerticalAlignment="Top" Width="49" BorderBrush="#FF707070" 
                  Background="#FFD6D6D6" IsReadOnly="True" Foreground="#FF535353" FontFamily="Arial" 
                  FontWeight="Bold" SelectionBrush="#FF707070"/>
         <TextBox x:Name="textBoxPitch" HorizontalAlignment="Left" Height="16" Margin="467,127,0,0" 

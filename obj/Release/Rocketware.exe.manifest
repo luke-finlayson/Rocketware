@@ -67,14 +67,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Rocketware.exe" size="1029088">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Rocketware.exe" size="1031136">
       <assemblyIdentity name="Rocketware" version="1.0.0.0" publicKeyToken="409A41C3F0F6EE65" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>XhQL295JiGjSlrMGV+WAoL4CQLCe4+TqLJEcio+xc9s=</dsig:DigestValue>
+        <dsig:DigestValue>1Ae00ChCBHNz2Sn4h5yaMaAFAnDKrj2AHWnLaBVE974=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

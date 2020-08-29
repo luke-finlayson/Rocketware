@@ -4,11 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Rocketware"
-        mc:Ignorable="d"
-        Title="ErrorDialog" ResizeMode="NoResize" SizeToContent="Width" Padding="0" Margin="0" Background="WhiteSmoke" Height="150" Icon="pack://siteoforigin:,,,/Resources/errorFavicon.png" WindowStartupLocation="CenterScreen">
+        mc:Ignorable="d" ResizeMode="NoResize" SizeToContent="Width" Padding="0" Margin="0" Background="WhiteSmoke" Height="150" Icon="pack://siteoforigin:,,,/Resources/errorFavicon.png" WindowStartupLocation="CenterScreen">
     <Grid Margin="0,0,10,10">
-        <Label x:Name="label1" Content="Opps" HorizontalAlignment="Left" Height="27" Margin="10,10,0,0" VerticalAlignment="Top" Width="144" Foreground="#FFABABAB" FontFamily="Arial" FontWeight="Bold" FontSize="15"/>
-        <Label x:Name="labelMessage" Content="Message" HorizontalAlignment="Left" Margin="38,37,0,0" VerticalAlignment="Top" Foreground="#FFA9A5A5" FontFamily="Arial" FontSize="12.5" FontWeight="Bold" Height="24"/>
+        <Label x:Name="label1" Content="Opps" HorizontalAlignment="Left" Height="27" Margin="10,10,0,0" VerticalAlignment="Top" Width="144" Foreground="#FFFF4242" FontFamily="Arial" FontWeight="Bold" FontSize="15"/>
+        <Label x:Name="labelMessage" Content="Message" HorizontalAlignment="Left" Margin="38,37,0,0" VerticalAlignment="Top" Foreground="#FF6E6E6E" FontFamily="Arial" FontSize="12.5" FontWeight="Bold" Height="24"/>
         <Button IsDefault="True" x:Name="buttonOk" Content="OK" Background="White" BorderBrush="#FFAEAEAE" Foreground="#FF7E7D7D" FontFamily="Arial" FontWeight="Bold" FontSize="13" Height="29" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="73" Click="buttonOk_Click" Margin="0">
             <Button.Effect>
                 <DropShadowEffect BlurRadius="6" Direction="300" Opacity="0.25" ShadowDepth="3"/>

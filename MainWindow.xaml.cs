@@ -31,6 +31,10 @@ namespace Rocketware
         double humidity;
         double pressure;
         double currentAltitude = 0;
+        double altitude;
+        bool useHeadingInMath = true;
+        bool useImperial = false;
+        bool outputDataToLog = false;
 
         // Program config related variables
         bool useDeltaAltitude = true;
@@ -41,6 +45,24 @@ namespace Rocketware
         Model3DGroup rocket;
         Point3D rocketPivot = new Point3D(0, 0, 350);
         RotateTransform3D rotateRocket;
+        Point3D defaultCameraPosition = new Point3D(-898.84, 1052.01, 690.01);
+        Vector3D defaultCameraLookDirection = new Vector3D(897.36, -1070.23, 27.75);
+
+        // Light Theme related variables
+        SolidColorBrush backgroundFillLight = new SolidColorBrush(Color.FromRgb(245, 245, 245));
+        SolidColorBrush foregroundFillLight = new SolidColorBrush(Color.FromRgb(255, 255, 255));
+        SolidColorBrush renderWindowFillLight = new SolidColorBrush(Color.FromRgb(234, 234, 234));
+        SolidColorBrush headingForegrondLight = new SolidColorBrush(Color.FromRgb(171, 171, 171));
+        SolidColorBrush textForegroundLight = new SolidColorBrush(Color.FromRgb(169, 165, 165));
+        SolidColorBrush buttonForegroundLight = new SolidColorBrush(Color.FromRgb(126, 125, 125));
+
+        // Dark Theme related variables
+        SolidColorBrush backgroundFillDark = new SolidColorBrush(Color.FromRgb(67, 67, 67));
+        SolidColorBrush foregroundFillDark = new SolidColorBrush(Color.FromRgb(78, 78, 78));
+        SolidColorBrush renderWindowFillDark = new SolidColorBrush(Color.FromRgb(60, 60, 60));
+        SolidColorBrush headingForegrondDark = new SolidColorBrush(Color.FromRgb(115, 115, 115));
+        SolidColorBrush textForegroundDark = new SolidColorBrush(Color.FromRgb(152, 152, 152));
+        SolidColorBrush buttonForegroundDark = new SolidColorBrush(Color.FromRgb(126, 125, 125));
 
         public MainWindow()
         {
@@ -73,6 +95,9 @@ namespace Rocketware
             rocket = importer.Load("Resources/rocket.obj");
             // Set content of model tag in ViewPort to rocket model
             model.Content = rocket;
+            // Move camera to default position
+            rocketView.Camera.Position = defaultCameraPosition;
+            rocketView.Camera.LookDirection = defaultCameraLookDirection;
 
             OutputToLog("Program Started. Awaiting Command.");
         }
@@ -87,6 +112,18 @@ namespace Rocketware
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             Exit();
+        }
+
+        private void useImperialCheckbox_Click(object sender, RoutedEventArgs e)
+        {
+            // Toggle Imperial Units
+            useImperial = !useImperial;
+        }
+
+        private void outputDataCheckbox_Click(object sender, RoutedEventArgs e)
+        {
+            // Toggle outputting data to log
+            outputDataToLog = !outputDataToLog;
         }
 
         /// <summary>
@@ -230,6 +267,17 @@ namespace Rocketware
                 OutputToLog("Commands updated.");
             }
         }
+
+        /// <summary>
+        /// Toggle the heading value used in equations
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void HeadingCheckbox_Click(object sender, RoutedEventArgs e)
+        {
+            // Toggle heading bool
+            useHeadingInMath = !useHeadingInMath;
+        }
         #endregion
 
         #region Device Commands
@@ -344,6 +392,17 @@ namespace Rocketware
                     // Apply UI changes outside thread
                     Dispatcher.BeginInvoke((Action)(() =>
                     {
+                        if (outputDataToLog)
+                        {
+                            OutputToLog(heading.ToString("N1") + "," + 
+                                pitch.ToString("N1") + "," + 
+                                roll.ToString("N1") + "," + 
+                                deltaAltitude.ToString("N1") + "," + 
+                                temperature.ToString("N1") + "," + 
+                                humidity.ToString("N1") + "," + 
+                                pressure.ToString("N1"));
+                        }
+
                         UpdateTextBoxes();
                     }));
                 }
@@ -357,14 +416,21 @@ namespace Rocketware
         public void UpdateTextBoxes()
         {
             // Update position textboxes
-            textBoxHeading.Text = heading + "°";
+            textBoxHeading.Text = heading.ToString("N1") + "°";
             textBoxPitch.Text = pitch + "°";
             textBoxRoll.Text = roll + "°";
 
             // Doing Math (ugh)
-            heading = ConvertToRad(heading);
             pitch = ConvertToRad(pitch);
             roll = ConvertToRad(roll);
+            if(useHeadingInMath)
+            {
+                heading = ConvertToRad(heading);
+            }
+            else
+            {
+                heading = 0;
+            }
 
             // Solving for required variables
             double c1 = Math.Cos(heading / 2);
@@ -395,18 +461,26 @@ namespace Rocketware
             // Check which altitude format to display
             if (useDeltaAltitude)
             {
-                // Display change in altitude
-                textBoxAltitude.Text = deltaAltitude + "m";
+                altitude = deltaAltitude;
             }
             else
             {
-                // Display total altitude displacement
-                textBoxAltitude.Text = currentAltitude + "m";
+                altitude = currentAltitude;
             }
 
-            textBoxTemperature.Text = temperature + "°C";
-            textBoxHumidity.Text = "" + humidity;
-            textBoxPressure.Text = pressure + "hPa";
+            if(!useImperial)
+            {
+                textBoxTemperature.Text = temperature.ToString("N1") + "°C";
+                textBoxAltitude.Text = altitude.ToString("N1") + "m";
+                textBoxPressure.Text = pressure.ToString("N1") + "hPa";
+            }
+            else
+            {
+                textBoxTemperature.Text = ((temperature * (9 / 5)) + 32).ToString("N1") + "°F";
+                textBoxAltitude.Text = (altitude * 3.28084).ToString("N1") + "ft";
+                textBoxPressure.Text = (pressure * 0.014503773773).ToString("N1") + "PSI";
+            }
+            textBoxHumidity.Text = humidity.ToString("N1") + " %";
         }
 
         /// <summary>
