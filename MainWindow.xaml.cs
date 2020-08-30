@@ -98,7 +98,7 @@ namespace Rocketware
             // Move camera to default position
             rocketView.Camera.Position = defaultCameraPosition;
             rocketView.Camera.LookDirection = defaultCameraLookDirection;
-
+            
             OutputToLog("Program Started. Awaiting Command.");
         }
         #endregion
