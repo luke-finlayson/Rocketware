@@ -43,12 +43,11 @@
                           Click="MenuItem_Click_2" IsEnabled="False"/>
             </MenuItem>
             <MenuItem Header="D_ata">
-                <MenuItem Header="_Zero"/>
+                <MenuItem Header="_Zero" Click="MenuItem_Click_6"/>
                 <MenuItem Header="_Clear Data" Click="MenuItem_Click_3"/>
                 <Separator/>
-                <CheckBox x:Name="checkBoxHeading" Content="Use Heading in Math" IsChecked="True" Click="HeadingCheckbox_Click"/>
-                <CheckBox x:Name="useDeltaAltitudeCheckBox" Content="Use Δ _Altitude" 
-                          IsChecked="True" Click="Checkbox_Click"/>
+                <CheckBox x:Name="checkBoxHeading" Content="Use Heading in Math" Click="HeadingCheckbox_Click"/>
+                <CheckBox x:Name="useDeltaAltitudeCheckBox" Content="Use Δ _Altitude" Click="Checkbox_Click"/>
                 <CheckBox x:Name="useImperialCheckbox" Content="Use Imperial Units" Click="useImperialCheckbox_Click"/>
                 <CheckBox x:Name="outputDataCheckbox" Content="Output Data to Log" Click="outputDataCheckbox_Click"/>
             </MenuItem>

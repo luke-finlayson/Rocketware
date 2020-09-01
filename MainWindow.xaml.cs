@@ -8,6 +8,7 @@ using System.Windows.Media;
 using HelixToolkit.Wpf;
 using System.Windows.Threading;
 using System.Windows.Media.Media3D;
+using Rocketware.Properties;
 
 namespace Rocketware
 {
@@ -32,12 +33,17 @@ namespace Rocketware
         double pressure;
         double currentAltitude = 0;
         double altitude;
-        bool useHeadingInMath = true;
-        bool useImperial = false;
-        bool outputDataToLog = false;
+
+        // Data related zero errors
+        double headingZeroError;
+        double pitchZeroError;
+        double rollZeroError;
 
         // Program config related variables
-        bool useDeltaAltitude = true;
+        bool useHeadingInMath;
+        bool useImperial;
+        bool outputDataToLog;
+        bool useDeltaAltitude;
         string logSaveLocation;
         string[] commandArray = { "launch", "abort", "deploy-parachute", "aux1", "aux2", "aux3" };
 
@@ -67,6 +73,17 @@ namespace Rocketware
         public MainWindow()
         {
             InitializeComponent();
+
+            useHeadingInMath = Settings.Default.useHeadingInMath;
+            useDeltaAltitude = Settings.Default.useDeltaAltitude;
+            useImperial = Settings.Default.useImperial;
+            outputDataToLog = Settings.Default.outputDataToLog;
+
+            checkBoxHeading.IsChecked = useHeadingInMath;
+            useDeltaAltitudeCheckBox.IsChecked = useDeltaAltitude;
+            useImperialCheckbox.IsChecked = useImperial;
+            outputDataCheckbox.IsChecked = outputDataToLog;
+
             outputLog.Text = DateTime.Now.ToString("T") + ":> Logging started...\n";
 
             // Create a new SerialPort object with default values
@@ -105,6 +122,18 @@ namespace Rocketware
 
         #region Button & Menu Item Click Events
         /// <summary>
+        /// Set all relevant zero errors to set current variables to zero
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MenuItem_Click_6(object sender, RoutedEventArgs e)
+        {
+            headingZeroError = heading;
+            pitchZeroError = pitch;
+            rollZeroError = roll;
+        }
+
+        /// <summary>
         /// Call the method to exit the program [Menu Item]
         /// </summary>
         /// <param name="sender"></param>
@@ -118,12 +147,16 @@ namespace Rocketware
         {
             // Toggle Imperial Units
             useImperial = !useImperial;
+            // Update the user settings
+            Settings.Default.useImperial = useImperial;
         }
 
         private void outputDataCheckbox_Click(object sender, RoutedEventArgs e)
         {
             // Toggle outputting data to log
             outputDataToLog = !outputDataToLog;
+            // Update the user settings
+            Settings.Default.outputDataToLog = outputDataToLog;
         }
 
         /// <summary>
@@ -237,6 +270,8 @@ namespace Rocketware
                 labelAltitude.Content = "Δ Altitude:";
                 useDeltaAltitude = true;
             }
+            // Update the user settings
+            Settings.Default.useDeltaAltitude = useDeltaAltitude;
         }
 
         /// <summary>
@@ -277,6 +312,8 @@ namespace Rocketware
         {
             // Toggle heading bool
             useHeadingInMath = !useHeadingInMath;
+            // Update the user settings
+            Settings.Default.useHeadingInMath = useHeadingInMath;
         }
         #endregion
 
@@ -362,7 +399,7 @@ namespace Rocketware
                     string inputData = _serialPort.ReadLine();
                     // Split the data into an array
                     string[] rawDataArray = inputData.Split('\t');
-                    float[] inputDataArray = new float[7];
+                    double[] inputDataArray = new double[7];
 
                     // Get rid of any blanks and unwanted chars in the serial data
                     int j = 0;
@@ -375,15 +412,15 @@ namespace Rocketware
                         if (rawDataArray[i] != "")
                         {
                             // Append clean data to final array
-                            inputDataArray[j] = float.Parse(rawDataArray[i]);
+                            inputDataArray[j] = double.Parse(rawDataArray[i]);
                             j++;
                         }
                     }
 
                     // Sort data
-                    heading = inputDataArray[0];
-                    pitch = inputDataArray[1];
-                    roll = inputDataArray[2];
+                    heading = inputDataArray[0] - headingZeroError;
+                    pitch = inputDataArray[1] - pitchZeroError;
+                    roll = inputDataArray[2] - rollZeroError;
                     deltaAltitude = inputDataArray[3];
                     temperature = inputDataArray[4];
                     humidity = inputDataArray[5];
@@ -403,7 +440,7 @@ namespace Rocketware
                                 pressure.ToString("N1"));
                         }
 
-                        UpdateTextBoxes();
+                        RenderData();
                     }));
                 }
                 catch { }
@@ -413,7 +450,7 @@ namespace Rocketware
         /// <summary>
         /// Converts the euler angles to axis-angle and thus rotates the rocket model then updates the data fields
         /// </summary>
-        public void UpdateTextBoxes()
+        public void RenderData()
         {
             // Update position textboxes
             textBoxHeading.Text = heading.ToString("N1") + "°";
@@ -468,6 +505,7 @@ namespace Rocketware
                 altitude = currentAltitude;
             }
 
+            // Check which unit to display in the data fields
             if(!useImperial)
             {
                 textBoxTemperature.Text = temperature.ToString("N1") + "°C";
@@ -476,6 +514,7 @@ namespace Rocketware
             }
             else
             {
+                // Convert values from metric to imperial
                 textBoxTemperature.Text = ((temperature * (9 / 5)) + 32).ToString("N1") + "°F";
                 textBoxAltitude.Text = (altitude * 3.28084).ToString("N1") + "ft";
                 textBoxPressure.Text = (pressure * 0.014503773773).ToString("N1") + "PSI";
@@ -536,15 +575,22 @@ namespace Rocketware
         /// </summary>
         void Exit()
         {
+            // Close and open serial ports
             CloseSerial();
+            OutputToLog("PROGRAM TERMINATED. END OF LOG.");
 
+            // Check whether to save the log or not
             if (logSaveLocation != null)
             {
+                // Create a new file and copy the log content into it
                 File.WriteAllText(logSaveLocation, outputLog.Text);
-                OutputToLog("Log saved at ." + logSaveLocation);
+                // Remind user where they saved the log
+                MessageBox.Show("The log has been saved at " + logSaveLocation);
             }
 
-            OutputToLog("PROGRAM TERMINATED. END OF LOG.");
+            // Save the current program configuration
+            Settings.Default.Save();
+            // Close the program
             Close();
         }
 
