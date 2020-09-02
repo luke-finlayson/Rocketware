@@ -1,3 +1,2 @@
 theme: jekyll-theme-merlot
-github:
-  zip_url: http://example.com/download.zip
+show_downloads: true
