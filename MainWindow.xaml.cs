@@ -38,6 +38,7 @@ namespace Rocketware
         double headingZeroError;
         double pitchZeroError;
         double rollZeroError;
+        bool zeroValues = false;
 
         // Program config related variables
         bool useHeadingInMath;
@@ -128,9 +129,7 @@ namespace Rocketware
         /// <param name="e"></param>
         private void MenuItem_Click_6(object sender, RoutedEventArgs e)
         {
-            headingZeroError = heading;
-            pitchZeroError = pitch;
-            rollZeroError = roll;
+            zeroValues = true;
         }
 
         /// <summary>
@@ -417,30 +416,15 @@ namespace Rocketware
                         }
                     }
 
-                    // Sort data
-                    heading = inputDataArray[0] - headingZeroError;
-                    pitch = inputDataArray[1] - pitchZeroError;
-                    roll = inputDataArray[2] - rollZeroError;
-                    deltaAltitude = inputDataArray[3];
-                    temperature = inputDataArray[4];
-                    humidity = inputDataArray[5];
-                    pressure = inputDataArray[6];
-
                     // Apply UI changes outside thread
                     Dispatcher.BeginInvoke((Action)(() =>
                     {
-                        if (outputDataToLog)
-                        {
-                            OutputToLog(heading.ToString("N1") + "," + 
-                                pitch.ToString("N1") + "," + 
-                                roll.ToString("N1") + "," + 
-                                deltaAltitude.ToString("N1") + "," + 
-                                temperature.ToString("N1") + "," + 
-                                humidity.ToString("N1") + "," + 
-                                pressure.ToString("N1"));
-                        }
+                        deltaAltitude = inputDataArray[3];
+                        temperature = inputDataArray[4];
+                        humidity = inputDataArray[5];
+                        pressure = inputDataArray[6];
 
-                        RenderData();
+                        RenderData(inputDataArray[0], inputDataArray[1], inputDataArray[2]);
                     }));
                 }
                 catch { }
@@ -450,12 +434,36 @@ namespace Rocketware
         /// <summary>
         /// Converts the euler angles to axis-angle and thus rotates the rocket model then updates the data fields
         /// </summary>
-        public void RenderData()
+        public void RenderData(double rawHeading, double rawPitch, double rawRoll)
         {
+            if(zeroValues)
+            {
+                headingZeroError = rawHeading;
+                pitchZeroError = rawPitch;
+                rollZeroError = rawRoll;
+
+                zeroValues = false;
+            }
+
+            heading = rawHeading - headingZeroError;
+            pitch = rawPitch - pitchZeroError;
+            roll = rawRoll - rollZeroError;
+
             // Update position textboxes
             textBoxHeading.Text = heading.ToString("N1") + "°";
             textBoxPitch.Text = pitch + "°";
             textBoxRoll.Text = roll + "°";
+
+            if (outputDataToLog)
+            {
+                OutputToLog(heading.ToString("N1") + "," +
+                    pitch.ToString("N1") + "," +
+                    roll.ToString("N1") + "," +
+                    deltaAltitude.ToString("N1") + "," +
+                    temperature.ToString("N1") + "," +
+                    humidity.ToString("N1") + "," +
+                    pressure.ToString("N1"));
+            }
 
             // Doing Math (ugh)
             pitch = ConvertToRad(pitch);

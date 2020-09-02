@@ -29,3 +29,4 @@ C:\Users\lukef\source\repos\Rocketware\Rocketware\obj\Debug\Rocketware.exe
 C:\Users\lukef\source\repos\Rocketware\Rocketware\obj\Debug\Rocketware.pdb
 C:\Users\lukef\source\repos\Rocketware\Rocketware\obj\Debug\Rocketware.csprojAssemblyReference.cache
 C:\Users\lukef\source\repos\Rocketware\Rocketware\obj\Debug\Rocketware.Resources.resources
+C:\Users\lukef\source\repos\Rocketware\Rocketware\obj\Debug\Rocketware.SkyBox.resources

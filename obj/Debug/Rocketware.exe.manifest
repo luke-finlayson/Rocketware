@@ -67,14 +67,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Rocketware.exe" size="409568">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Rocketware.exe" size="1040352">
       <assemblyIdentity name="Rocketware" version="1.0.0.0" publicKeyToken="409A41C3F0F6EE65" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Cm2tc22beYCeICVUxc1FGUMZdrk2BvzO63fA3Zx33h4=</dsig:DigestValue>
+        <dsig:DigestValue>zM+KyM4dEdEOiJJ5MV+n5pGEGGM9nZRxJVHKHjswsN0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -87,13 +87,13 @@
       <dsig:DigestValue>Bn2H901+4fohMBjnqRE8V7MQ1W0EpP6lf7rwjWF8n+A=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Rocketware.exe.config" size="189">
+  <file name="Rocketware.exe.config" size="1318">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>R+Wg8QGvQVHX8T0ta/qbhH1bXkqY0fRnS3wBV3J0bN8=</dsig:DigestValue>
+      <dsig:DigestValue>/NodrjhzQKEDWy7WSyui3QiLdN21Cc87yhIeJrLPMXo=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

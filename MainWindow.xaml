@@ -43,7 +43,7 @@
                           Click="MenuItem_Click_2" IsEnabled="False"/>
             </MenuItem>
             <MenuItem Header="D_ata">
-                <MenuItem Header="_Zero" Click="MenuItem_Click_6"/>
+                <MenuItem Header="_Zero" Click="MenuItem_Click_6" IsEnabled="False"/>
                 <MenuItem Header="_Clear Data" Click="MenuItem_Click_3"/>
                 <Separator/>
                 <CheckBox x:Name="checkBoxHeading" Content="Use Heading in Math" Click="HeadingCheckbox_Click"/>
