@@ -1,2 +1,4 @@
 theme: jekyll-theme-merlot
 show_downloads: true
+github:
+  zip_url: https://github.com/qwertyhpp/Rocketware/releases/download/release/Release_02-09-2020.zip
